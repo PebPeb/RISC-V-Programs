@@ -36,6 +36,8 @@ WORKDIR /compiler/riscv-gnu-toolchain
 # RV32I
 RUN ./configure --prefix=/opt/riscv32i --with-arch=rv32i --with-abi=ilp32
 RUN make
+RUN apt-get update && apt-get install -y bsdmainutils
+
 ENV PATH="/opt/riscv32i/bin:${PATH}"
 
 FROM base as compiler
