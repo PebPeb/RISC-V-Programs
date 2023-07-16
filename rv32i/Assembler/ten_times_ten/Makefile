@@ -1,4 +1,6 @@
-include ../../../../../config.properties
+HOME = ../../../../../
+
+include $(HOME)config.properties
 
 PROGRAM_NAME = ten_times_ten
 DEPENDENCIES = ../libs/math/INT_MULT.s
@@ -15,4 +17,9 @@ dump:
 
 clean:
 	rm -f *.elf *.bin *.hex || true
+
+docker-compile:
+	
+	docker run --rm -v ../../../../../:/project -w /code <compiler_image> make -f /code/Makefile
+
 
