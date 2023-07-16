@@ -1,5 +1,5 @@
-# Use Ubuntu 22.04.2 as the base image
-FROM ubuntu:22.04.2
+# Use Ubuntu 22.04 as the base image
+FROM ubuntu:22.04 as base
 
 
 # Download all the compilers dependencies
@@ -30,9 +30,13 @@ RUN apt-get update && apt-get install -y \
     libglib2.0-dev 
 
 # Clone the riscv toolchain
-RUN git clone https://github.com/riscv/riscv-gnu-toolchain /compiler
+RUN git clone https://github.com/riscv/riscv-gnu-toolchain /compiler/riscv-gnu-toolchain
 WORKDIR /compiler/riscv-gnu-toolchain
 
 # RV32I
 RUN ./configure --prefix=/opt/riscv32i --with-arch=rv32i --with-abi=ilp32
 RUN make
+ENV PATH="/opt/riscv32i/bin:${PATH}"
+
+FROM base as compiler
+
