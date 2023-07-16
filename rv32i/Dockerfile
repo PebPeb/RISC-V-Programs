@@ -40,5 +40,3 @@ RUN apt-get update && apt-get install -y bsdmainutils
 
 ENV PATH="/opt/riscv32i/bin:${PATH}"
 
-FROM base as compiler
-
