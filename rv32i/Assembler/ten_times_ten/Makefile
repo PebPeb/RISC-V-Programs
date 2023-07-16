@@ -20,6 +20,6 @@ clean:
 
 docker-compile:
 	
-	docker run --rm -v ../../../../../:/project -w /code <compiler_image> make -f /code/Makefile
+	docker run --rm -v ../../../../../:/project -w /project rv32i-compiler make -f /project/programs/RISC-V-Programs/rv32i/Assembler/ten_times_ten/Makefile
 
 
