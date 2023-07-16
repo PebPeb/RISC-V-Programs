@@ -1,6 +1,7 @@
-HOME = ../../../../../
+HOME_DIR = ../../../../../
+PROGRAM_DIR = $(CURDIR)
 
-include $(HOME)config.properties
+include $(HOME_DIR)config.properties
 
 PROGRAM_NAME = ten_times_ten
 DEPENDENCIES = ../libs/math/INT_MULT.s
@@ -8,6 +9,7 @@ DEPENDENCIES = ../libs/math/INT_MULT.s
 all: compile
 
 compile:
+	echo $(PROGRAM_DIR)
 	riscv32-unknown-elf-gcc -march=rv32i -mabi=ilp32 -nostdlib -Wl,-T,../../../../../$(GCC_LINKER) -o $(PROGRAM_NAME).elf $(PROGRAM_NAME).s $(DEPENDENCIES)
 	riscv32-unknown-elf-objcopy -O binary $(PROGRAM_NAME).elf $(PROGRAM_NAME).bin
 	hexdump -e '"%08x\n"' $(PROGRAM_NAME).bin | sed 's/../& /g' > $(PROGRAM_NAME).hex
