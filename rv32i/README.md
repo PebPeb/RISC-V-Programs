@@ -16,8 +16,3 @@ For those not using linux the following Dockerfile builds a containerized compil
 ``` bash
 sudo ./build_compiler.sh
 ```
-
-### Docker Help
-
-After building, the binaries only take about 1 GB though I have been unable to figure out how to reduce a Docker image size. The desired effect would be to build a rv32i-compiler-base and then remove the 8.5 GB taken up by the riscv-gnu-toolchain and save the changes as compiler-base that only takes up 1.5 GB instead of 10 GB.
-
