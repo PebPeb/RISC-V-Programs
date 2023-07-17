@@ -40,3 +40,16 @@ RUN apt-get update && apt-get install -y bsdmainutils
 
 ENV PATH="/opt/riscv32i/bin:${PATH}"
 
+
+FROM ubuntu:22.04 as compiler
+
+# Copy only what is necessary
+COPY --from=base /opt/riscv32i /opt/riscv32i
+
+RUN apt-get update && apt-get install -y \
+    bsdmainutils \
+    make
+
+ENV PATH="/opt/riscv32i/bin:${PATH}"
+WORKDIR /opt/riscv32i
+
