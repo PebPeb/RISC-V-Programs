@@ -11,15 +11,16 @@
 #   a0 <- Number of loops
 #   results -> a0
 
-
+# Stand alone start
 _start:
     li a0, 10
     jal fibonacci
-    la t0, RESULTS
+    lw t0, RESULTS_PTR          # Pointer to results
     sw a0, 0(t0)
     jal inf_loop
 
-fibonacci:
+# Jump here to call fibonacci from external programs
+fibonacci:                   
     mv t0, a0                   # t0 = i
     addi a0, zero, 0
     addi a1, zero, 1
@@ -38,4 +39,4 @@ inf_loop:
     jal inf_loop
 
 .data
-RESULTS: .word 0x000000FC
+RESULTS_PTR: .word 0x000000FC    # Pointer to Results
