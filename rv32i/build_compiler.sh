@@ -1,4 +1,6 @@
 #!/bin/bash
 
-docker build --target base --tag rv32i-compiler-base .
-docker build --target compiler --tag rv32i-compiler .
+source compiler.properties
+
+docker build --target base --tag $BUILD_NAME-compiler-base .
+docker build --target compiler --tag $BUILD_NAME-compiler .
