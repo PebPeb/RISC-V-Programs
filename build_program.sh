@@ -2,44 +2,42 @@
 
 # Get the directory where the script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# Go to the script's directory
 cd "$SCRIPT_DIR"
 
-# Function to get the value of a variable from compiler.properties
-get_variable_value() {
-    local dir="${1%/}" # Remove trailing slash from the input directory
-    local variable_name="$2"
-    local variable_value
+compiler_dirs=()                                    # Directory
+compilers=()                                        # BUILD_NAME value in that directory
 
-    # Check if the compiler.properties file exists in the folder
-    if [ -f "$dir/compiler.properties" ]; then
-        # Use grep to extract the value of the variable from compiler.properties
-        variable_value=$(grep -i "\b$variable_name\b" "$dir/compiler.properties" | cut -d '=' -f 2)
-        echo "$variable_value"
-    else
-        echo "$variable_name not found in '$dir/compiler.properties'"
+for dir in */; do                                  
+  if [ -d "$dir" ]; then                            # If a directory
+    dir_name="${dir%/}"                             # Remove trailing '/'
+    build_name=
+    if [ -f "$dir/compiler.properties" ]; then      # Check if the folder has a compiler.properties
+      # Use grep to extract the value of the variable from compiler.properties
+      build_name=$(grep -i "\bBUILD_NAME\b" "$dir/compiler.properties" | cut -d '=' -f 2)
+      if [ -z "$build_name" ]; then                  # Check if the BUILD_NAME is null
+        skip=
+      else
+        compiler_dirs+=($dir)            
+        compilers+=($build_name)
+      fi
     fi
-}
-
-
+  fi
+done
 
 
 i=0
-for dir in */; do
-  # Check if the entry is a directory
-  if [ -d "$dir" ]; then
-    dir_name="${dir%/}"                  # Remove trailing slash for a cleaner output
-    build_name=$(get_variable_value "$dir_name" "BUILD_NAME")
-    docker_image=$build_name-compiler
-
-    if docker image inspect "$docker_image" &> /dev/null; then
-      formatted_output=$(printf "%-15s" "$build_name")
-    else
-      formatted_output=$(printf "%-15s %-10s" "$build_name" "[INSTALL]")
-    fi
-    echo "[$i] - $formatted_output"
-    # Get the BUILD_NAME from compiler.properties
-    i=$((i + 1))
+for value in "${compilers[@]}"
+do
+  docker_image=$value-compiler
+  if docker image inspect "$docker_image" &> /dev/null; then
+    formatted_output=$(printf "%-15s" "$value")
+  else
+    formatted_output=$(printf "%-15s %-10s" "$value" "[INSTALL]")
   fi
+  echo "[$i] - $formatted_output"
+  i=$((i + 1))
 done
+
+# value="${value%/}"
+# "${compilers[$i]}"  # For using a variable as the counter
+
