@@ -30,13 +30,15 @@ PROJECT_NAME := $(notdir $(basename $(PROJECT_DIR)))
 
 include $(PROJECT_DIR)/config.properties
 
-PROGRAM_NAME := $(PROGRAM_DIR)/ten_times_ten
-DEPENDENCIES := $(PROGRAM_DIR)/../libs/math/INT_MULT.s
+PROGRAM_NAME := fibonacci
+DEPENDENCIES := 
+
+PROGRAM_NAME := $(PROGRAM_DIR)/$(PROGRAM_NAME)
 
 all: compile
 
 compile:
-	riscv32-unknown-elf-gcc -march=rv32i -mabi=ilp32 -nostdlib -Wl,-T,$(PROJECT_DIR)/$(GCC_LINKER) -o $(PROGRAM_NAME).elf $(PROGRAM_NAME).s $(DEPENDENCIES)
+	riscv32-unknown-elf-gcc -march=rv32i -mabi=ilp32 -nostdlib -Wl,-T,$(PROJECT_DIR)/$(GCC_LINKER) -o $(PROGRAM_NAME).elf $(PROGRAM_NAME).c $(DEPENDENCIES)
 	riscv32-unknown-elf-objcopy -O binary $(PROGRAM_NAME).elf $(PROGRAM_NAME).bin
 	hexdump -e '"%08x\n"' $(PROGRAM_NAME).bin | sed 's/../& /g' > $(PROGRAM_NAME).hex
 

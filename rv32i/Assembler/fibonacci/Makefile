@@ -51,3 +51,5 @@ clean:
 docker-compile:
 	docker run --rm -v $(PROJECT_DIR):/$(PROJECT_NAME) -w /$(PROJECT_NAME) rv32i-compiler make -f $(PATH_FROM_PROJECT_TO_PROGRAM)/Makefile
 
+docker-dump:
+	docker run --rm -v $(PROJECT_DIR):/$(PROJECT_NAME) -w /$(PROJECT_NAME) rv32i-compiler make -f $(PATH_FROM_PROJECT_TO_PROGRAM)/Makefile dump

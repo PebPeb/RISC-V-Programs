@@ -46,6 +46,7 @@ FROM ubuntu:22.04 as compiler
 COPY --from=base /opt/riscv32i /opt/riscv32i
 
 RUN apt-get update && apt-get install -y \
+    libmpc-dev \
     bsdmainutils \
     make
 
