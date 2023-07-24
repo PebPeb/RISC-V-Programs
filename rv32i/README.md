@@ -11,7 +11,7 @@ hexdump -e '"%08x\n"' test.bin > text.hex
 
 ## Containerized Compiler
 
-For those not using linux the following Dockerfile builds a containerized compiler for rv32i. This process can take over and hour to build resulting in an image about 10 GB in size.
+For those not using linux the following Dockerfile builds a containerized compiler for rv32i. This process can take over and hour to build resulting in an image about 10 GB in size. The compiler base image my be removed after the build leaving just the compiler image.
 
 ``` bash
 sudo ./build_compiler.sh

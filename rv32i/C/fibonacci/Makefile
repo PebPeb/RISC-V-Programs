@@ -54,7 +54,7 @@ clean:
 	rm -f *.elf *.bin *.hex || true
 
 docker-compile:
-	docker run --rm -v $(PROJECT_DIR):/$(PROJECT_NAME) -w /$(PROJECT_NAME) rv32i-compiler make -f $(PATH_FROM_PROJECT_TO_PROGRAM)/Makefile test
+	docker run --rm -v $(PROJECT_DIR):/$(PROJECT_NAME) -w /$(PROJECT_NAME) rv32i-compiler make -f $(PATH_FROM_PROJECT_TO_PROGRAM)/Makefile compile
 
 # docker-compile:
 # 	docker run --rm -v $(PROJECT_DIR):/$(PROJECT_NAME) -w /$(PROJECT_NAME) rv32i-compiler make -f $(PATH_FROM_PROJECT_TO_PROGRAM)/Makefile
