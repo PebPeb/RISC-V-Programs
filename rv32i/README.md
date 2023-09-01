@@ -3,11 +3,9 @@
 
 The rv32i compiler is a compiler for 
 
+## Containerized RV32I Compiler (RISC-V)
 
-
-## Containerized Compiler
-
-For those not using linux or are interested in the following Dockerfile builds a containerized compiler for rv32i. This process can take over and hour to build resulting in an image about 10 GB in size. The compiler base image may be removed after the build leaving just the compiler image in order to save space.
+The following Dockerfile contains the build process for setting up the [RISC-V gnu toolchain](https://github.com/riscv/riscv-gnu-toolchain) for targeting RV32I. This process can take over a hour to build, resulting in an image about 10 GB in size. The compiler base image may be removed after the build leaving just the compiler image in order to save space.
 
 ``` bash
 sudo ./build_compiler.sh
