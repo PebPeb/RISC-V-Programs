@@ -15,8 +15,8 @@
 _start:
     li a0, 10
     jal fibonacci
-    lw t0, RESULTS_PTR          # Pointer to results
-    sw a0, 0(t0)
+    # lw t0, RESULTS_PTR          # Pointer to results
+    sw a0, 252(zero)
     jal inf_loop
 
 # Jump here to call fibonacci from external programs
@@ -38,5 +38,5 @@ end:
 inf_loop:
     jal inf_loop
 
-.data
-RESULTS_PTR: .word 0x000000FC    # Pointer to Results
+# .data
+# RESULTS_PTR: .word 0x000000FC    # Pointer to Results
